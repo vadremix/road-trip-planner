@@ -30,6 +30,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
+    user: "${UID}:${GID}" # If an anonymous node_modules volume is created, this will cause a file ownership issue.
     environment:
       UID: "${UID}"
       GID: "${GID}"
@@ -38,8 +39,8 @@ services:
       - "4200:4200"
     volumes:
       - ./frontend:/app
-      - /app/node_modules
-    command: sh -c "npm install && npm start"
+    #  - /app/node_modules # Meant to provide environment portability, but disabled to work around an IDE configuration problem.
+    command: sh -c "yarn install && yarn start"
 
 volumes:
   db-data:
