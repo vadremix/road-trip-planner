@@ -4,7 +4,7 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-final class RouteControllerTest extends WebTestCase
+final class RouteCalculationControllerTest extends WebTestCase
 {
     public function testCalculateRoute(): void
     {

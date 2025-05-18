@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/api', name: 'api_')]
-class RouteController extends AbstractController
+class RouteCalculationController extends AbstractController
 {
     #[Route('/route', name: 'calculate_route', methods: ['POST'])]
     public function index(Request $request): JsonResponse
