@@ -8,21 +8,32 @@ final class RouteCalculationControllerTest extends WebTestCase
 {
     public function testCalculateRoute(): void
     {
-        // todo: stub
-
         $client = static::createClient();
-        $client->request('POST', '/api/route');
+        $client->request(
+            'POST', '/api/route', [], [], ['CONTENT_TYPE' => 'application/json'],
+            json_encode([
+                'start' => [
+                    'latitude' => 54.24,
+                    'longitude' => 54.24
+                ],
+                'end' => [
+                    'latitude' => 50.24,
+                    'longitude' => 54.24
+                ],
+                'range' => 300
+            ])
+        );
 
         self::assertResponseIsSuccessful();
     }
 
-    public function testCalculateRouteWithMissingFields(): void
+    public function testCalculateRouteWithInvalidInput(): void
     {
         $client = static::createClient();
         $client->request('POST', '/api/route',  [], [], ['CONTENT_TYPE' => 'application/json'], json_encode([
             'start' => 'Amsterdam'
         ]));
 
-        $this->assertResponseStatusCodeSame(400);
+        $this->assertResponseStatusCodeSame(422);
     }
 }

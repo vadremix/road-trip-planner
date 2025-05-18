@@ -2,27 +2,22 @@
 
 namespace App\Controller;
 
+use App\Dto\RouteRequestDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/api', name: 'api_')]
 class RouteCalculationController extends AbstractController
 {
     #[Route('/route', name: 'calculate_route', methods: ['POST'])]
-    public function index(Request $request): JsonResponse
+    public function index(#[MapRequestPayload] RouteRequestDto $routeRequest): JsonResponse
     {
-        // todo: stub
-        $data = json_decode($request->getContent(), true);
-
-        if (!isset($data['start'], $data['end'], $data['range'])) {
-            return $this->json(['error' => 'Missing required fields'], 400);
-        }
-
+        // todo: enqueue
         return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/RouteController.php',
+            'message' => 'Valid request, ready to queue',
+            'info' => $routeRequest,
         ]);
     }
 }
