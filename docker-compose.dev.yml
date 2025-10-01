@@ -14,13 +14,14 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
+      args:
+        UID: "${UID}"
+        GID: "${GID}"
     environment:
       DATABASE_URL: postgres://symfony:secret@db:5432/symfony
-      UID: "${UID}"
-      GID: "${GID}"
     depends_on:
       - db
-    entrypoint: ["/bin/sh", "/app/entrypoint.sh"]
+    user: "${UID}:${GID}"
     ports:
       - "8000:8000"
     volumes:
